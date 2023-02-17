@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Talk 3</title>
+	<style> 
+		textarea {
+		  width: 100%;
+		  height: 150px;
+		  padding: 12px 20px;
+		  box-sizing: border-box;
+		  border: 2px solid #ccc;
+		  border-radius: 4px;
+		  background-color:#f8f8f8;
+		  font-size: 16px;
+		  resize: none;
+		}
+
+		body{background:#fff;}
+
+.bubble{
+  position:relative;
+  display: inline-block;
+  padding: 15px;
+  background: #ff9;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  text-transform: uppercase;
+  color:#000;
+  border:2px solid #000;
+  border-radius:20px;
+  outline:0;
+}
+.bubble:after{
+  content: ' ';
+  position:absolute;
+  margin: 0 auto;
+  left:0;
+  right:0;
+  bottom:-10px;
+  width:15px;
+  height:15px;
+  background:#ff9;
+  border-right: 2px solid #000;
+  border-bottom: 2px solid #000;
+  transform: rotate(45deg);
+}
+		</style>
+</head>
+
+<body>
+	<div id="results" ></div>
+	<!--<textarea title="chat box" name="ta" id="results" cols="30" rows="10" >
+
+	</textarea>--><br>
+	Send Message: <input title="Chat" type="text" id="exp">
+	<input type="button" id="submit" value="Send">
+	<script>
+		const socket = new WebSocket('ws://localhost:8000/ws/talk/');
+		socket.onmessage = (e) => {
+			result = JSON.parse(e.data).result;
+            console.log("Socket message");
+			document.getElementById("results").innerHTML += "Server: " + result + "<br>";
+		}
+
+		socket.onclose = (e) => {
+			console.log("Socket closed!");
+		}
+
+		document.querySelector('#exp').onkeyup = function (e) {
+			if (e.keyCode === 13) { // enter, return
+				document.querySelector('#submit ').click();
+			}
+		};
+
+		document.querySelector("#submit").onclick = (e) => {
+			inputfield = document.querySelector("#exp")
+			exp = inputfield.value
+			console.log(exp)
+			socket.send(JSON.stringify(
+				{
+					expression: exp
+				}
+			))
+			//document.querySelector("#results").value += "You: " + exp + "\n";
+			document.getElementById('results').innerHTML += "<div id='sendtxt'>"+"You: " + exp + "</div>" +"<br>";
+			inputfield.value = "";
+		}
+
+	</script>
+</body>
+
+</html>

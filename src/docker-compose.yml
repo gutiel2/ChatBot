@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  chatbot:
+    image: chatbot
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000

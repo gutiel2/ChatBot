@@ -1,0 +1,20 @@
+{
+  "artists" : [
+    {
+      "artistname" : "Deep Purple",
+      "formed" : "1968",
+      "albums" : [
+        {
+          "albumname" : "Machine Head",
+          "year" : "1972",
+          "genre" : "Rock"
+        }, 
+        {
+          "albumname" : "Stormbringer",
+          "year" : "1974",
+          "genre" : "Rock"
+        }
+      ]
+    }
+  ]
+}
